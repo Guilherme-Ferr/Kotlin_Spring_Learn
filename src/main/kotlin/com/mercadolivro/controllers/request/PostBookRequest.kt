@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 data class PostBookRequest (
     @JsonAlias("customer_id")
-    var customerId: Int,
+    var customer_id: Int,
     var name: String,
     var price: BigDecimal,
 )

@@ -1,7 +1,7 @@
 package com.mercadolivro.services
 
 import com.mercadolivro.models.CustomerModel
-import com.mercadolivro.repository.CustomerRepository
+import com.mercadolivro.repositories.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service
