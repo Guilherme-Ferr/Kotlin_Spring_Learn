@@ -1,5 +1,6 @@
 package com.mercadolivro.models
 
+import com.mercadolivro.enums.CustomerStatus
 import javax.persistence.*
 
 //nome da tabela
@@ -14,5 +15,9 @@ data class CustomerModel(
     var name: String,
 
     @Column
-    var email: String
+    var email: String,
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    var status: CustomerStatus
 )
