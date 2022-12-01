@@ -1,6 +1,7 @@
 package com.mercadolivro.models
 
 import com.mercadolivro.enums.CustomerStatus
+import com.mercadolivro.enums.Profile
 import javax.persistence.*
 
 //nome da tabela
@@ -23,4 +24,10 @@ data class CustomerModel(
 
     @Column
     var password: String,
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Profile::class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "customer_roles", joinColumns = [JoinColumn(name = "customer_id")])
+    var roles: Set<Profile> = setOf()
 )
