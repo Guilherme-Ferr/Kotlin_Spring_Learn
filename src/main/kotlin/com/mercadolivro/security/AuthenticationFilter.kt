@@ -1,0 +1,32 @@
+package com.mercadolivro.security
+
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.mercadolivro.controllers.request.LoginRequest
+import com.mercadolivro.exception.AuthenticationException
+import com.mercadolivro.repositories.CustomerRepository
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+class AuthenticationFilter(
+    authenticationManager: AuthenticationManager,
+    private val customerRepository: CustomerRepository
+) : UsernamePasswordAuthenticationFilter(authenticationManager) {
+
+    override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
+        try {
+            // transforma oq vier do body em um data class de email e senha
+            val loginRequest = jacksonObjectMapper().readValue(request.inputStream, LoginRequest::class.java)
+            val id = customerRepository.findByEmail(loginRequest.email)?.id
+            // criar token com id e senha
+            val authToken = UsernamePasswordAuthenticationToken(id, loginRequest.password)
+            // verificando se ta tudo certo passando o token
+            return authenticationManager.authenticate(authToken)
+        } catch (ex: Exception) {
+            throw AuthenticationException("Falha ao autenticar usuario ", "999777")
+        }
+    }
+}
