@@ -20,14 +20,13 @@ class CustomerService(
         name?.let {
             return customerRepository.findByNameContaining(name)
         }
-
         return customerRepository.findAll().toList()
     }
 
     fun createCustomer(customer: CustomerModel) {
         val customerCopy = customer.copy(
             roles = setOf(Profile.CUSTOMER),
-        password = bCrypt.encode(customer.password)
+            password = bCrypt.encode(customer.password)
         )
         customerRepository.save(customerCopy)
     }
@@ -40,16 +39,13 @@ class CustomerService(
         if (!customerRepository.existsById(customer.id!!)) {
             throw Exception()
         }
-
         customerRepository.save(customer)
     }
 
     fun delete( id: Int) {
         val customer = findById(id)
         bookService.deleteByCustomer(customer)
-
         customer.status = CustomerStatus.INATIVO
-
         customerRepository.save(customer)
     }
 

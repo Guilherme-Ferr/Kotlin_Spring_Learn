@@ -6,9 +6,8 @@ import com.mercadolivro.exception.BadRequestException
 import java.math.BigDecimal
 import javax.persistence.*
 
-//nome da tabela
 @Entity(name = "book")
-data class BookModel(
+data class BookModel (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +29,6 @@ data class BookModel(
     @Enumerated(EnumType.STRING)
     var status: BookStatus? = null
     set(value) {
-
         if(field == BookStatus.CANCELADO || field == BookStatus.DELETADO)
             throw BadRequestException(Errors.ML102.message.format(field), Errors.ML102.code)
 

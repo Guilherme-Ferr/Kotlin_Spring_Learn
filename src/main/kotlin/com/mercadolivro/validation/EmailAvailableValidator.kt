@@ -4,8 +4,9 @@ import com.mercadolivro.services.CustomerService
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 
-class EmailAvailableValidator(var customerService: CustomerService): ConstraintValidator<EmailAvailable, String> {
-
+class EmailAvailableValidator(
+    private var customerService: CustomerService
+    ): ConstraintValidator<EmailAvailable, String> {
 
     override fun isValid(value: String?, context: ConstraintValidatorContext?): Boolean {
         if(value.isNullOrEmpty()) {
@@ -13,5 +14,4 @@ class EmailAvailableValidator(var customerService: CustomerService): ConstraintV
         }
         return customerService.emailAvailable(value)
     }
-
 }

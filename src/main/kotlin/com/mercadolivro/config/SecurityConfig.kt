@@ -17,7 +17,6 @@ class SecurityConfig(
     private val customerRepository: CustomerRepository
 ) : WebSecurityConfigurerAdapter() {
 
-
     //lista de rotas que serão publicas
     private val PUBLIC_POST_MATCHERS = arrayOf(
         "/customer"

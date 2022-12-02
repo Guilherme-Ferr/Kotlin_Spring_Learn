@@ -32,9 +32,7 @@ class BookService(
 
     fun delete(id: Int) {
         val book = findById(id)
-
         book.status = BookStatus.CANCELADO
-
         update(book)
     }
 
@@ -44,7 +42,6 @@ class BookService(
 
     fun deleteByCustomer(customer: CustomerModel) {
         val books = bookRepository.findByCustomer(customer)
-
         for(book in books) {
             book.status = BookStatus.DELETADO
         }

@@ -6,7 +6,6 @@ import com.mercadolivro.repositories.PurchaseRepository
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
-
 @Service
 class PurchaseService(
     private val purchaseRepository: PurchaseRepository,
@@ -15,7 +14,6 @@ class PurchaseService(
 
     fun create(purchaseModel: PurchaseModel) {
         purchaseRepository.save(purchaseModel)
-
         println("Disparando evento de compra")
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchaseModel))
         println("Finalização do processamento")
