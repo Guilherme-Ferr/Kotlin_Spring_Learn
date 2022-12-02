@@ -9,5 +9,5 @@ import org.springframework.scheduling.annotation.EnableAsync
 class MercadolivroApplication
 
 fun main(args: Array<String>) {
-	runApplication<MercadolivroApplication>(*args)
+    runApplication<MercadolivroApplication>(*args)
 }

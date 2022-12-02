@@ -21,7 +21,13 @@ fun PostCustomerRequest.toCustomerModel(): CustomerModel {
 }
 
 fun PutCustomerRequest.toCustomerModel(previousCustomerValue: CustomerModel): CustomerModel {
-    return CustomerModel(id = previousCustomerValue.id, name = this.name, email = this.email, status = previousCustomerValue.status, password = previousCustomerValue.password)
+    return CustomerModel(
+        id = previousCustomerValue.id,
+        name = this.name,
+        email = this.email,
+        status = previousCustomerValue.status,
+        password = previousCustomerValue.password
+    )
 }
 
 fun PostBookRequest.toBookModel(customer: CustomerModel): BookModel {

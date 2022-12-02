@@ -32,17 +32,18 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
+        return customerRepository.findById(id)
+            .orElseThrow { NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
     }
 
-    fun update( customer: CustomerModel) {
+    fun update(customer: CustomerModel) {
         if (!customerRepository.existsById(customer.id!!)) {
             throw Exception()
         }
         customerRepository.save(customer)
     }
 
-    fun delete( id: Int) {
+    fun delete(id: Int) {
         val customer = findById(id)
         bookService.deleteByCustomer(customer)
         customer.status = CustomerStatus.INATIVO

@@ -1,7 +1,6 @@
 package com.mercadolivro.controllers.request
 
 import java.math.BigDecimal
-import javax.validation.constraints.NotEmpty
 
 data class PutBookRequest(
     var name: String?,

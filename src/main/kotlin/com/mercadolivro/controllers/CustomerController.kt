@@ -14,12 +14,12 @@ import javax.validation.Valid
 @RequestMapping("customers")
 class CustomerController(
     val customerService: CustomerService
-){
+) {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@RequestParam name: String?): List<CustomerResponse> {
-       return customerService.getAll(name).map { it.toResponse() }
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @PostMapping

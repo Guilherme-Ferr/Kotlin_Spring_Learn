@@ -6,7 +6,7 @@ import javax.persistence.*
 
 //nome da tabela
 @Entity(name = "customer")
-data class CustomerModel (
+data class CustomerModel(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

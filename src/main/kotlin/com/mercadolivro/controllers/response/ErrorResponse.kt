@@ -1,6 +1,6 @@
 package com.mercadolivro.controllers.response
 
-data class ErrorResponse (
+data class ErrorResponse(
     var httpCode: Int,
     var message: String,
     var internalCode: String,

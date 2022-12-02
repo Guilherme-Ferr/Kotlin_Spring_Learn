@@ -1,6 +1,5 @@
 package com.mercadolivro.exception
 
-
 import com.mercadolivro.controllers.response.ErrorResponse
 import com.mercadolivro.controllers.response.FieldErrorResponse
 import com.mercadolivro.enums.Errors
@@ -37,7 +36,10 @@ class ControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleMethodArgumentNotValidException(
+        ex: MethodArgumentNotValidException,
+        request: WebRequest
+    ): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
             HttpStatus.UNPROCESSABLE_ENTITY.value(),
             Errors.ML001.message,
