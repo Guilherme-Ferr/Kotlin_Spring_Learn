@@ -40,7 +40,8 @@ class SecurityConfig(
     )
 
     private val PUBLIC_GET_MATCHERS = arrayOf(
-        "/books"
+        "/books",
+        "/books/active"
     )
 
     private val AMIND_MATCHERS = arrayOf("/admin/**")

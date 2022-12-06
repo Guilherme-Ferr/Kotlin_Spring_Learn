@@ -3,11 +3,12 @@ package com.mercadolivro.controllers
 import com.mercadolivro.controllers.request.PostBookRequest
 import com.mercadolivro.controllers.request.PutBookRequest
 import com.mercadolivro.controllers.response.BookResponse
+import com.mercadolivro.controllers.response.PageResponse
 import com.mercadolivro.extensions.toBookModel
+import com.mercadolivro.extensions.toPageResponse
 import com.mercadolivro.extensions.toResponse
 import com.mercadolivro.services.BookService
 import com.mercadolivro.services.CustomerService
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
@@ -30,12 +31,12 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
-        bookService.findAll(pageable).map { it.toResponse() }
+    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> =
+        bookService.findAll(pageable).map { it.toResponse() }.toPageResponse()
 
     @GetMapping("/active")
-    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
-        bookService.findActive(pageable).map { it.toResponse() }
+    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> =
+        bookService.findActive(pageable).map { it.toResponse() }.toPageResponse()
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Int): BookResponse =
