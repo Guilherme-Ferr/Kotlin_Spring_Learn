@@ -9,3 +9,7 @@ spring:
     password: bcd127
   jackson:
     default-property-inclusion: non_null
+
+jwt:
+  secret: f3e1fb52-0511-4055-9014-55c73eb7184c
+  expiration: 999999

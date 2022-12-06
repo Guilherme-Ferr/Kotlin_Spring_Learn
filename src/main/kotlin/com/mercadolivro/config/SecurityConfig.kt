@@ -2,6 +2,8 @@ package com.mercadolivro.config
 
 import com.mercadolivro.repositories.CustomerRepository
 import com.mercadolivro.security.AuthenticationFilter
+import com.mercadolivro.security.AuthorizationFilter
+import com.mercadolivro.security.JWTUtil
 import com.mercadolivro.services.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,7 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 @EnableWebSecurity
 class SecurityConfig(
     private val customerRepository: CustomerRepository,
-    private val userDetails: UserDetailsCustomService
+    private val userDetails: UserDetailsCustomService,
+    private val jwtUtil: JWTUtil
 ) : WebSecurityConfigurerAdapter() {
 
     //lista de rotas que serão publicas
@@ -35,7 +38,8 @@ class SecurityConfig(
             //pode retirar o metodo http expecificado para considerar qualquer um
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .anyRequest().authenticated()
-        http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository))
+        http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
+        http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
