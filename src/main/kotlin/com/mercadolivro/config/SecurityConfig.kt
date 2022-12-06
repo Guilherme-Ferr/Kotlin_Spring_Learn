@@ -1,5 +1,6 @@
 package com.mercadolivro.config
 
+import com.mercadolivro.enums.Role
 import com.mercadolivro.repositories.CustomerRepository
 import com.mercadolivro.security.AuthenticationFilter
 import com.mercadolivro.security.AuthorizationFilter
@@ -24,9 +25,13 @@ class SecurityConfig(
 ) : WebSecurityConfigurerAdapter() {
 
     //lista de rotas que serão publicas
+    private val PUBLIC_MATCHERS = arrayOf<String>()
+
     private val PUBLIC_POST_MATCHERS = arrayOf(
         "/customer"
     )
+
+    private val AMIND_MATCHERS = arrayOf("/admin/**")
 
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetails).passwordEncoder(BCryptPasswordEncoder())
@@ -36,7 +41,9 @@ class SecurityConfig(
         http.cors().and().csrf().disable()
         http.authorizeRequests()
             //pode retirar o metodo http expecificado para considerar qualquer um
+            .antMatchers(*PUBLIC_MATCHERS).permitAll()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+            .antMatchers(*AMIND_MATCHERS).hasAnyAuthority(Role.ADMIN.description)
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
