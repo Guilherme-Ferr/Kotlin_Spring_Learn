@@ -40,7 +40,6 @@ class CustomerController(
     @ResponseStatus(HttpStatus.OK)
     fun update(@PathVariable id: Int, @RequestBody @Valid customer: PutCustomerRequest) {
         val customerSaved = customerService.findById(id)
-
         customerService.update(customer.toCustomerModel(customerSaved))
     }
 
